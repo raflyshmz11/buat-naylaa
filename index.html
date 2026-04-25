@@ -54,6 +54,19 @@ button:hover { background: #ff7fa0; }
   z-index: 1000;
 }
 
+/* 🌸 bunga muter */
+.play-btn::before {
+  content: "🌸 🌼 🌸 🌼";
+  position: absolute;
+  font-size: 20px;
+  width: 120px;
+  height: 120px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  animation: spinFlower 12s linear infinite;
+}
+
 .play-icon {
   width:0;
   height:0;
@@ -66,6 +79,11 @@ button:hover { background: #ff7fa0; }
   0% { transform: scale(1); }
   50% { transform: scale(1.1); }
   100% { transform: scale(1); }
+}
+
+@keyframes spinFlower {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 /* 3 slide */
@@ -95,7 +113,7 @@ video {
   margin-top:10px;
 }
 
-/* overlay FIX */
+/* overlay */
 #overlayText {
   position:fixed;
   top:0;
@@ -124,17 +142,38 @@ video {
   0% {transform: translateY(-10%);}
   100% {transform: translateY(110vh);}
 }
+
+/* 🌸 bunga jatuh */
+.flower {
+  position: fixed;
+  font-size: 20px;
+  animation: fallFlower 8s linear infinite;
+}
+@keyframes fallFlower {
+  0% {transform: translateY(-10%);}
+  100% {transform: translateY(110vh);}
+}
+
+/* 🦋 kupu */
+.butterfly {
+  position: fixed;
+  font-size: 22px;
+  animation: fly 10s linear infinite;
+}
+@keyframes fly {
+  0% { transform: translateX(-10vw) translateY(20vh); }
+  50% { transform: translateX(50vw) translateY(10vh); }
+  100% { transform: translateX(110vw) translateY(30vh); }
+}
 </style>
 </head>
 
 <body>
 
-<!-- AUDIO -->
 <audio id="musik" loop playsinline>
   <source src="lagu.mp3" type="audio/mpeg">
 </audio>
 
-<!-- OVERLAY -->
 <div id="overlayText">Ayo mulai jelajah… 💌</div>
 
 <!-- PAGE 1 -->
@@ -163,6 +202,7 @@ video {
     <p>Rafly di sini masih nunggu, masih berharap bisa sama Nayy lagi. Rafly bakal usaha semampu Rafly buat jaga Nayy, bahagiain Nayy, dan nggak ngulangin kesalahan yang sama.</p>
     <p>Jujur… Rafly kangen semuanya. Kangen nongkrong bareng Nayy, kangen cerita, kangen hal-hal kecil yang dulu kita lakuin bareng. Semua tentang Nayy selalu bikin Rafly rindu.</p>
     <p>Kalau Nayy masih mau kasih Rafly satu kesempatan lagi… Rafly janji bakal jaga itu sebaik mungkin.</p>
+
     <a href="LINK_GOOGLE_FORM" target="_blank">
       <button>Jawab di sini ya 💌</button>
     </a>
@@ -184,45 +224,29 @@ video {
 
   <h3>Video Kita 🎥</h3>
 
-  <video controls>
-    <source src="video1.mp4" type="video/mp4">
-  </video>
-
-  <video controls>
-    <source src="video2.mp4" type="video/mp4">
-  </video>
-
-  <video controls>
-    <source src="video3.mp4" type="video/mp4">
-  </video>
+  <video controls><source src="video1.mp4"></video>
+  <video controls><source src="video2.mp4"></video>
+  <video controls><source src="video3.mp4"></video>
 
 </div>
 
 <script>
-// pindah halaman
-function nextPage(n) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+function nextPage(n){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById('page'+n).classList.add('active');
 }
 
-// play lagu
-function mulai() {
-  let m = document.getElementById("musik");
+function mulai(){
+  let m=document.getElementById("musik");
+  m.play().catch(()=>alert("Klik lagi ya 🎵"));
 
-  m.muted = false;
-
-  m.play().catch(() => {
-    alert("Klik sekali lagi ya biar lagu jalan 🎵");
-  });
-
-  let overlay = document.getElementById("overlayText");
-  overlay.style.opacity = "1";
-
-  setTimeout(()=>overlay.style.opacity="0",2000);
+  let o=document.getElementById("overlayText");
+  o.style.opacity="1";
+  setTimeout(()=>o.style.opacity="0",2000);
   setTimeout(()=>nextPage(2),2500);
 }
 
-// daftar foto
+/* FOTO 1-50 */
 let fotos = [
 "foto1.jpeg","foto2.jpeg","foto3.jpeg","foto4.jpeg","foto5.jpeg",
 "foto6.jpeg","foto7.jpeg","foto8.jpeg","foto9.jpeg","foto10.jpeg",
@@ -238,41 +262,43 @@ let fotos = [
 
 let index = 0;
 
-// 3 slide jalan
 setInterval(()=>{
   index = (index + 3) % fotos.length;
 
-  let s1 = document.getElementById("slide1");
-  let s2 = document.getElementById("slide2");
-  let s3 = document.getElementById("slide3");
-
-  if(!s1 || !s2 || !s3) return;
-
-  s1.style.opacity = 0;
-  s2.style.opacity = 0;
-  s3.style.opacity = 0;
-
-  setTimeout(()=>{
-    s1.src = fotos[index];
-    s2.src = fotos[index+1];
-    s3.src = fotos[index+2];
-
-    s1.style.opacity = 1;
-    s2.style.opacity = 1;
-    s3.style.opacity = 1;
-  },400);
-
+  slide1.src = fotos[index];
+  slide2.src = fotos[index+1];
+  slide3.src = fotos[index+2];
 },3500);
 
-// hati
+/* ❤️ hati */
 setInterval(()=>{
-  let h = document.createElement("div");
+  let h=document.createElement("div");
   h.className="heart";
   h.innerHTML="❤️";
   h.style.left=Math.random()*100+"vw";
   document.body.appendChild(h);
   setTimeout(()=>h.remove(),5000);
 },500);
+
+/* 🌸 bunga */
+setInterval(()=>{
+  let f=document.createElement("div");
+  f.className="flower";
+  f.innerHTML="🌸";
+  f.style.left=Math.random()*100+"vw";
+  document.body.appendChild(f);
+  setTimeout(()=>f.remove(),8000);
+},700);
+
+/* 🦋 kupu */
+setInterval(()=>{
+  let b=document.createElement("div");
+  b.className="butterfly";
+  b.innerHTML="🦋";
+  b.style.top=Math.random()*80+"vh";
+  document.body.appendChild(b);
+  setTimeout(()=>b.remove(),10000);
+},4000);
 </script>
 
 </body>
