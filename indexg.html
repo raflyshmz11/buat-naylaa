@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Untuk Kamu ❤️</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  text-align: center;
+  background: linear-gradient(to bottom, #fff0f5, #ffd6e0);
+}
+
+.page { display: none; padding: 20px; }
+.active { display: block; }
+
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 20px;
+  max-width: 500px;
+  margin: auto;
+  box-shadow: 0 8px 20px rgba(255,182,193,0.4);
+}
+
+button {
+  padding: 12px 25px;
+  background: #ff9bb3;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+button:hover { background: #ff7fa0; }
+
+/* tombol play */
+.play-btn {
+  width:90px;
+  height:90px;
+  background:#ff9bb3;
+  border-radius:50%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  cursor:pointer;
+  box-shadow:0 0 20px rgba(255,150,180,0.6);
+  animation:pulse 1.5s infinite;
+}
+.play-icon {
+  width:0;
+  height:0;
+  border-left:25px solid white;
+  border-top:15px solid transparent;
+  border-bottom:15px solid transparent;
+}
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+  100% { transform: scale(1); }
+}
+
+/* foto */
+.slide-img {
+  width:70%;
+  max-width:300px;
+  border-radius:12px;
+  margin-top:10px;
+  transition: opacity 0.8s;
+}
+
+/* video */
+video {
+  width:80%;
+  max-width:300px;
+  border-radius:10px;
+  margin-top:10px;
+}
+
+/* overlay */
+#overlayText {
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:#fff0f5;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:24px;
+  color:#ff7fa0;
+  opacity:0;
+  transition:0.5s;
+  z-index:999;
+}
+
+/* hati */
+.heart {
+  position: fixed;
+  color: pink;
+  animation: fall 6s linear infinite;
+}
+@keyframes fall {
+  0% {transform: translateY(-10%);}
+  100% {transform: translateY(110vh);}
+}
+</style>
+</head>
+
+<body>
+
+<!-- AUDIO -->
+<audio id="musik" loop>
+  <source src="lagu.mp3" type="audio/mpeg">
+</audio>
+
+<!-- OVERLAY -->
+<div id="overlayText">Ayo mulai jelajah… 💌</div>
+
+<!-- PAGE 1 -->
+<div id="page1" class="page active">
+  <div style="height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center;">
+    <h1 style="color:#ff7fa0;">Untuk Kamu ❤️</h1>
+    <p>Tolong dengerin aku sekali ini aja…</p>
+
+    <div class="play-btn" onclick="mulai()">
+      <div class="play-icon"></div>
+    </div>
+
+    <p>Klik untuk mulai 🎵</p>
+  </div>
+</div>
+
+<!-- PAGE 2 -->
+<div id="page2" class="page">
+  <div class="card">
+    <h1>Maaf Ya (Nama Dia) ❤️</h1>
+
+    <p>Aku minta maaf atas semua kesalahan aku...</p>
+    <p>Aku sadar aku sering bikin kamu kecewa...</p>
+    <p>Aku gak mau kehilangan kamu...</p>
+
+    <!-- SLIDE MINI -->
+    <img id="slideMini" class="slide-img" src="foto1.jpeg">
+
+    <p>Aku janji akan berubah dan membahagiakan kamu...</p>
+
+    <a href="LINK_GOOGLE_FORM" target="_blank">
+      <button>Jawab di sini ya 💌</button>
+    </a>
+
+    <br>
+    <button onclick="nextPage(3)">Lihat Kenangan 📸</button>
+  </div>
+</div>
+
+<!-- PAGE 3 -->
+<div id="page3" class="page">
+  <h2>Kenangan Kita 📸</h2>
+
+  <img id="slide" class="slide-img" src="foto1.jpeg">
+
+  <h3>Video Kita 🎥</h3>
+
+  <video controls>
+    <source src="video1.mp4" type="video/mp4">
+  </video>
+
+  <video controls>
+    <source src="video2.mp4" type="video/mp4">
+  </video>
+
+  <video controls>
+    <source src="video3.mp4" type="video/mp4">
+  </video>
+
+</div>
+
+<script>
+// pindah halaman
+function nextPage(n) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page'+n).classList.add('active');
+}
+
+// mulai
+function mulai() {
+  document.getElementById("musik").play();
+
+  let overlay = document.getElementById("overlayText");
+  overlay.style.opacity = "1";
+
+  setTimeout(()=>overlay.style.opacity="0",2000);
+  setTimeout(()=>nextPage(2),2500);
+}
+
+// 50 FOTO
+let fotos = [
+"foto1.jpeg","foto2.jpeg","foto3.jpeg","foto4.jpeg","foto5.jpeg",
+"foto6.jpeg","foto7.jpeg","foto8.jpeg","foto9.jpeg","foto10.jpeg",
+"foto11.jpeg","foto12.jpeg","foto13.jpeg","foto14.jpeg","foto15.jpeg",
+"foto16.jpeg","foto17.jpeg","foto18.jpeg","foto19.jpeg","foto20.jpeg",
+"foto21.jpeg","foto22.jpeg","foto23.jpeg","foto24.jpeg","foto25.jpeg",
+"foto26.jpeg","foto27.jpeg","foto28.jpeg","foto29.jpeg","foto30.jpeg",
+"foto31.jpeg","foto32.jpeg","foto33.jpeg","foto34.jpeg","foto35.jpeg",
+"foto36.jpeg","foto37.jpeg","foto38.jpeg","foto39.jpeg","foto40.jpeg",
+"foto41.jpeg","foto42.jpeg","foto43.jpeg","foto44.jpeg","foto45.jpeg",
+"foto46.jpeg","foto47.jpeg","foto48.jpeg","foto49.jpeg","foto50.jpeg"
+];
+
+let i = 0;
+
+// slide utama + fade
+setInterval(()=>{
+  i = (i + 1) % fotos.length;
+  let slide = document.getElementById("slide");
+  slide.style.opacity = 0;
+
+  setTimeout(()=>{
+    slide.src = fotos[i];
+    slide.style.opacity = 1;
+  },400);
+},3500);
+
+// slide mini
+setInterval(()=>{
+  i = (i + 1) % fotos.length;
+  document.getElementById("slideMini").src = fotos[i];
+},2500);
+
+// hati
+setInterval(()=>{
+  let h = document.createElement("div");
+  h.className="heart";
+  h.innerHTML="❤️";
+  h.style.left=Math.random()*100+"vw";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),5000);
+},500);
+</script>
+
+</body>
+</html>
