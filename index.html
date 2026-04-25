@@ -48,8 +48,6 @@ button:hover { background: #ff7fa0; }
   cursor:pointer;
   box-shadow:0 0 20px rgba(255,150,180,0.6);
   animation:pulse 1.5s infinite;
-
-  /* FIX HP */
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
   position: relative;
@@ -70,13 +68,23 @@ button:hover { background: #ff7fa0; }
   100% { transform: scale(1); }
 }
 
-/* foto */
-.slide-img {
-  width:70%;
-  max-width:300px;
-  border-radius:12px;
-  margin-top:10px;
-  transition: opacity 0.8s;
+/* 3 slide */
+.slider-3 {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.slider-3 img {
+  width: 30%;
+  max-width: 150px;
+  border-radius: 12px;
+  transition: opacity 0.8s, transform 0.5s;
+}
+
+.slider-3 img:nth-child(2) {
+  transform: scale(1.1);
 }
 
 /* video */
@@ -152,8 +160,6 @@ video {
     <p>Aku sadar aku sering bikin kamu kecewa...</p>
     <p>Aku gak mau kehilangan kamu...</p>
 
-    <img id="slideMini" class="slide-img" src="foto1.jpeg">
-
     <p>Aku janji akan berubah dan membahagiakan kamu...</p>
 
     <a href="LINK_GOOGLE_FORM" target="_blank">
@@ -169,7 +175,11 @@ video {
 <div id="page3" class="page">
   <h2>Kenangan Kita 📸</h2>
 
-  <img id="slide" class="slide-img" src="foto1.jpeg">
+  <div class="slider-3">
+    <img id="slide1" src="foto1.jpeg">
+    <img id="slide2" src="foto2.jpeg">
+    <img id="slide3" src="foto3.jpeg">
+  </div>
 
   <h3>Video Kita 🎥</h3>
 
@@ -194,15 +204,13 @@ function nextPage(n) {
   document.getElementById('page'+n).classList.add('active');
 }
 
-// 🔥 FIX HP + LAPTOP
+// play lagu
 function mulai() {
   let m = document.getElementById("musik");
 
   m.muted = false;
 
-  m.play().then(() => {
-    console.log("lagu jalan");
-  }).catch(() => {
+  m.play().catch(() => {
     alert("Klik sekali lagi ya biar lagu jalan 🎵");
   });
 
@@ -213,7 +221,7 @@ function mulai() {
   setTimeout(()=>nextPage(2),2500);
 }
 
-// FOTO
+// daftar foto
 let fotos = [
 "foto1.jpeg","foto2.jpeg","foto3.jpeg","foto4.jpeg","foto5.jpeg",
 "foto6.jpeg","foto7.jpeg","foto8.jpeg","foto9.jpeg","foto10.jpeg",
@@ -227,27 +235,33 @@ let fotos = [
 "foto46.jpeg","foto47.jpeg","foto48.jpeg","foto49.jpeg","foto50.jpeg"
 ];
 
-let i = 0;
+let index = 0;
 
-// slide utama
+// 3 slide jalan
 setInterval(()=>{
-  i = (i + 1) % fotos.length;
-  let slide = document.getElementById("slide");
-  if(!slide) return;
-  slide.style.opacity = 0;
+  index = (index + 3) % fotos.length;
+
+  let s1 = document.getElementById("slide1");
+  let s2 = document.getElementById("slide2");
+  let s3 = document.getElementById("slide3");
+
+  if(!s1 || !s2 || !s3) return;
+
+  s1.style.opacity = 0;
+  s2.style.opacity = 0;
+  s3.style.opacity = 0;
 
   setTimeout(()=>{
-    slide.src = fotos[i];
-    slide.style.opacity = 1;
-  },400);
-},3500);
+    s1.src = fotos[index];
+    s2.src = fotos[index+1];
+    s3.src = fotos[index+2];
 
-// slide mini
-setInterval(()=>{
-  i = (i + 1) % fotos.length;
-  let mini = document.getElementById("slideMini");
-  if(mini) mini.src = fotos[i];
-},2500);
+    s1.style.opacity = 1;
+    s2.style.opacity = 1;
+    s3.style.opacity = 1;
+  },400);
+
+},3500);
 
 // hati
 setInterval(()=>{
