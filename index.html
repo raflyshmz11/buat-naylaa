@@ -48,7 +48,14 @@ button:hover { background: #ff7fa0; }
   cursor:pointer;
   box-shadow:0 0 20px rgba(255,150,180,0.6);
   animation:pulse 1.5s infinite;
+
+  /* FIX HP */
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  position: relative;
+  z-index: 1000;
 }
+
 .play-icon {
   width:0;
   height:0;
@@ -56,6 +63,7 @@ button:hover { background: #ff7fa0; }
   border-top:15px solid transparent;
   border-bottom:15px solid transparent;
 }
+
 @keyframes pulse {
   0% { transform: scale(1); }
   50% { transform: scale(1.1); }
@@ -79,7 +87,7 @@ video {
   margin-top:10px;
 }
 
-/* 🔥 FIX OVERLAY */
+/* overlay FIX */
 #overlayText {
   position:fixed;
   top:0;
@@ -93,7 +101,7 @@ video {
   font-size:24px;
   color:#ff7fa0;
   opacity:0;
-  pointer-events:none; /* 🔥 penting */
+  pointer-events:none;
   transition:0.5s;
   z-index:999;
 }
@@ -114,7 +122,7 @@ video {
 <body>
 
 <!-- AUDIO -->
-<audio id="musik" loop>
+<audio id="musik" loop playsinline>
   <source src="lagu.mp3" type="audio/mpeg">
 </audio>
 
@@ -186,12 +194,16 @@ function nextPage(n) {
   document.getElementById('page'+n).classList.add('active');
 }
 
-// 🔥 FIX PLAY
+// 🔥 FIX HP + LAPTOP
 function mulai() {
   let m = document.getElementById("musik");
 
-  m.play().catch(() => {
-    alert("Klik lagi ya biar lagu jalan 🎵");
+  m.muted = false;
+
+  m.play().then(() => {
+    console.log("lagu jalan");
+  }).catch(() => {
+    alert("Klik sekali lagi ya biar lagu jalan 🎵");
   });
 
   let overlay = document.getElementById("overlayText");
@@ -221,6 +233,7 @@ let i = 0;
 setInterval(()=>{
   i = (i + 1) % fotos.length;
   let slide = document.getElementById("slide");
+  if(!slide) return;
   slide.style.opacity = 0;
 
   setTimeout(()=>{
@@ -232,7 +245,8 @@ setInterval(()=>{
 // slide mini
 setInterval(()=>{
   i = (i + 1) % fotos.length;
-  document.getElementById("slideMini").src = fotos[i];
+  let mini = document.getElementById("slideMini");
+  if(mini) mini.src = fotos[i];
 },2500);
 
 // hati
